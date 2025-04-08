@@ -1,0 +1,28 @@
+services:
+
+mongodb:
+  
+
+  backend:
+      image: 1880160/tp2-1880160:${BACKEND_VERSION}
+      build:
+        context: ./movies-backend
+      ports:
+        - "8080:8080"
+      networks:
+        - movies-network
+  
+  frontend:
+      image: 1880160/tp2-1880160-frontend:${FRONTEND_VERSION}
+      build:
+        context: ./frontend
+      ports:
+        - "80:80"
+      depends_on:
+        - backend
+      networks:
+        - movies-network
+
+networks:
+  movies-network:
+    driver: bridge
